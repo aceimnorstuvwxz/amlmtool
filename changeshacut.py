@@ -56,7 +56,7 @@ def changeshacut(wavfn, outfd):
     print len(sound)
 
 
-    chunks = split_on_silence(sound, min_silence_len=500, silence_thresh=-40)#silence time:700ms and silence_dBFS<-70dBFS
+    chunks = split_on_silence(sound, min_silence_len=300, silence_thresh=-33)#silence time:700ms and silence_dBFS<-70dBFS
 
     print "chunks num =", len(chunks)
     if len(chunks) <= 2:
@@ -71,14 +71,9 @@ def changeshacut(wavfn, outfd):
         else:
             nfn = outfd +"/" + (wavfn.split('/')[-1][:-4]) + ('-%d.wav'%cnt)
             cnt = cnt + 1
-            ck.export(nfn, format="wav")
+            nck = ck.set_frame_rate(16000)
+            nck.export(nfn, format="wav")
             print "effect chunk name= %s length= %d" % (nfn, len(ck))
-
-
-
-    
-    
-
 
 
 if __name__ == "__main__":
