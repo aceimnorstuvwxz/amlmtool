@@ -56,7 +56,7 @@ def changeshacut(wavfn, outfd):
     print len(sound)
 
 
-    chunks = split_on_silence(sound, min_silence_len=300, silence_thresh=-33)#silence time:700ms and silence_dBFS<-70dBFS
+    chunks = split_on_silence(sound, min_silence_len=500, silence_thresh=-36)#silence time:700ms and silence_dBFS<-70dBFS
 
     print "chunks num =", len(chunks)
     if len(chunks) <= 2:
@@ -67,7 +67,8 @@ def changeshacut(wavfn, outfd):
 
     for ck in chunks:
         if len(ck) < EFFECT_MIN:
-            print "too short chunk"
+            #print "too short chunk"
+            pass
         else:
             nfn = outfd +"/" + (wavfn.split('/')[-1][:-4]) + ('-%d.wav'%cnt)
             cnt = cnt + 1
