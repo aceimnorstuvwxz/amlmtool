@@ -36,7 +36,7 @@ from pydub.silence import split_on_silence
 
 
 LENGTH_MIN = 20.0
-CUT_START = 20000
+CUT_START = 60000
 CUT_TAIL = 20000
 EFFECT_MIN = 2500
 EFFECT_MAX = 5600
@@ -66,7 +66,7 @@ def xcut(wavfn, outfd):
     chunks = chunks[1:-1]
 
     for ck in chunks:
-            nfn = outfd + "/" + (wavfn.split('/')[-1][:-4]) + ('-%d.wav'%cnt)
+            nfn = outfd + "/" + (wavfn.split('/')[-1][:-4]) + ('_%d.wav'%cnt)
             nck = ck.set_frame_rate(16000)
             nck = nck.set_channels(1)
             if len(nck) < EFFECT_MIN:
