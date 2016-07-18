@@ -82,6 +82,7 @@ def report_null(fn):
     print("dead "+fn +"<<>>")
     with open("report.txt", "a") as fr:
         fr.write(fn + "\n")
+        fr.write(fn[:-4] + "\n")
 
 def remove_unkonwn(l):
     r = u''
@@ -120,7 +121,7 @@ def gen(fn, foo):
             return
         
         c = cc[0]
-        if len(c) <= 0:
+        if len(c) <= 5:
             report_null(fn)
             return
 
@@ -148,12 +149,17 @@ if __name__ == "__main__":
         
     load_lexicon_dict()
 
-    with open('pp.txt','r') as pp:
+    usage = 'xtn.py file_list.txt src_folder des_folder\n'
+    if len(sys.argv) != 4:
+        print(usage)
+        exit()
+
+    with open(sys.argv[1],'r') as pp:
         files = pp.readlines()
         for ffn in files:
             if len(ffn) > 3:
                 print(ffn[:-1])
-                gen("/Users/chenbingfeng/tmpp/t-r-n/"+ffn[:-1], "/Users/chenbingfeng/tmpp/n-t-r-n/"+ffn[:-4]+"wav.trn")
+                gen(sys.argv[2] + "/"+ffn[:-1], sys.argv[3] + '/' +ffn[:-1])
 
     
 

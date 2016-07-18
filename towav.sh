@@ -8,3 +8,4 @@ mpg321 -w   "$f.wav"   "$f"
 
 
 done
+
