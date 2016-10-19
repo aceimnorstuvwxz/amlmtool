@@ -44,6 +44,6 @@ dgkae.cbf#gmail.com
 
 
 
-2016年08月23日
+LM文本制作
 language model material
 分行-》分词-》combine

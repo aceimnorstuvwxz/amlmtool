@@ -1,5 +1,3 @@
-output
-test
 *.zip
 *.pyc
-*.txt
+*.dat
