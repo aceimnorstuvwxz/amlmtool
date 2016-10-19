@@ -4,7 +4,7 @@ amlmtool
 
 Content:
     acoustic_model/* tools for preparation of AM training data
-    language_model/* tools for preparation of AM training data
+    language_model/* tools for preparation of LM training data
 
 
 License: 
