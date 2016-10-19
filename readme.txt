@@ -1,5 +1,8 @@
 
 
+
+
+
 +++++++++++Q++++++++++
 代号：Q
 来自长沙的对话数据，需要从中提取ASR的corpus。
@@ -37,3 +40,10 @@ http://www.ximalaya.com/36095869/album/3144025
 
 
 dgkae.cbf#gmail.com
+
+
+
+
+2016年08月23日
+language model material
+分行-》分词-》combine

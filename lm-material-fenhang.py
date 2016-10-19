@@ -2,7 +2,13 @@
 # -*- coding: utf-8 -*-
 
 '''
-1,给lm的训练材料进行分词，并且去掉非lexicon内的词。
+2,把句号逗号分割符号，如果前置长度超过第一大小后，把符号位置开新行。适应正常的说话停顿。
+天苍苍，野茫茫，风吹草低见牛羊。
+>>>
+天 苍苍 野 茫 茫 风 吹 草 低 见 牛 羊 （不是很好）
+>>>
+天 苍苍 野 茫 茫 
+风 吹 草 低 见 牛 羊
 
 '''
 
@@ -47,7 +53,6 @@ def replace_number(l):
     return ret
 
 def fenci(l):
-        t = replace_fuhao(l)
         ww = jieba.cut(t, cut_all=False)
         ww = [w.strip() for w in ww]
         nww = []
@@ -68,6 +73,32 @@ def fenci(l):
         
         return nl + '\n'
 
+FENHANG_THRESHOLD = 7
+def fenhang(l):
+    #print l
+    remain = l
+    ret = []
+    l = l + ' '
+    start = 0
+    now = 0
+    isin = False
+    cnt = 0
+    while now < len(l):
+        if l[now] == ' ' and isin == True and cnt >= FENHANG_THRESHOLD:
+            ret.append(l[start:now] + '\n')
+            isin = False
+            cnt = 0
+        elif l[now] != ' ' and isin == False:
+            isin = True
+            start = now
+        
+        cnt = cnt + 1
+        now = now + 1
+    # print ret
+    return ret
+
+
+
 
 #音素
 dict = {}
@@ -82,7 +113,7 @@ def load_lexicon_dict():
 			k, v= c[0:k], c[k+1:-1] #-1去掉换行
 			dict[k] = v
         
-def runfenci(fin, fout):
+def runfenhang(fin, fout):
     with open(fin, 'r') as f_in:
         cc = f_in.readlines()
         num = len(cc)
@@ -90,10 +121,12 @@ def runfenci(fin, fout):
         cnt = 0
         for c in cc:
             uc = c.decode('utf-8')
-            uc = fenci(uc)
             uc = replace_number(uc)
-            c = uc.encode('utf-8')
-            ret.append(c)
+            uc = replace_fuhao(uc)
+            ucs = fenhang(uc)
+            for euc in ucs:
+                c = euc.encode('utf-8')
+                ret.append(c)
             cnt = cnt + 1
             print "", cnt, "/", num
             
@@ -105,12 +138,14 @@ if __name__ == "__main__":
         
     load_lexicon_dict()
 
-    usage = 'lm-material-fenci.py input-material out-material\n'
-    if len(sys.argv) != 3:
+    usage = 'lm-material-fenghang.py input-material out-material THRESH_HOLD\n'
+    if len(sys.argv) != 4:
         print(usage)
         exit()
-    
-    runfenci(sys.argv[1], sys.argv[2])
+        
+    global FENHANG_THRESHOLD
+    FENHANG_THRESHOLD = int(sys.argv[3])
+    runfenhang(sys.argv[1], sys.argv[2])
     print "whole=", cnt_whole,  "split=", cnt_split, "split miss=", cnt_miss
 
     
