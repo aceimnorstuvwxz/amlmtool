@@ -82,6 +82,10 @@ def load_lexicon_dict():
 			k, v= c[0:k], c[k+1:-1] #-1去掉换行
 			dict[k] = v
         
+
+def progress(cnt, tot):
+    sys.stdout.write("\r %d / %d %f" % (cnt, tot, 1.0*cnt/tot))
+
 def runfenci(fin, fout):
   with open(fout, 'w') as f_out:
     with open(fin, 'r') as f_in:
@@ -96,7 +100,7 @@ def runfenci(fin, fout):
             f_out.writelines(c)
             cnt = cnt + 1
             if cnt % 10000 == 0:
-                print "\r", cnt, "/", num, cnt*1.0/num
+                progress(cnt, num)
             
 
 
