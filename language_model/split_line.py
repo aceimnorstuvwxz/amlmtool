@@ -114,10 +114,10 @@ def load_lexicon_dict():
 			dict[k] = v
         
 def runfenhang(fin, fout):
+  with open(fout, 'w') as f_out:
     with open(fin, 'r') as f_in:
         cc = f_in.readlines()
         num = len(cc)
-        ret = []
         cnt = 0
         for c in cc:
             uc = c.decode('utf-8')
@@ -126,13 +126,12 @@ def runfenhang(fin, fout):
             ucs = fenhang(uc)
             for euc in ucs:
                 c = euc.encode('utf-8')
-                ret.append(c)
+                f_out.write(c)
             cnt = cnt + 1
-            print "", cnt, "/", num
+            if cnt % 10000 == 0:
+                print "", cnt, "/", num
             
 
-        with open(fout, 'w') as f_out:
-            f_out.writelines(ret)
 
 if __name__ == "__main__":
         
