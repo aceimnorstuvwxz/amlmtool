@@ -129,7 +129,7 @@ def runfenhang(fin, fout):
                 f_out.write(c)
             cnt = cnt + 1
             if cnt % 10000 == 0:
-                print "", cnt, "/", num
+                print "\r", cnt, "/", num, cnt*1.0/num
             
 
 

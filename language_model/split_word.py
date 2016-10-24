@@ -83,23 +83,22 @@ def load_lexicon_dict():
 			dict[k] = v
         
 def runfenci(fin, fout):
+  with open(fout, 'w') as f_out:
     with open(fin, 'r') as f_in:
         cc = f_in.readlines()
         num = len(cc)
-        ret = []
         cnt = 0
         for c in cc:
             uc = c.decode('utf-8')
             uc = fenci(uc)
             uc = replace_number(uc)
             c = uc.encode('utf-8')
-            ret.append(c)
+            f_out.writelines(c)
             cnt = cnt + 1
-            print "", cnt, "/", num
+            if cnt % 10000 == 0:
+                print "\r", cnt, "/", num, cnt*1.0/num
             
 
-        with open(fout, 'w') as f_out:
-            f_out.writelines(ret)
 
 if __name__ == "__main__":
         
