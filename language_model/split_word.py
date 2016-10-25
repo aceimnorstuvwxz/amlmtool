@@ -85,8 +85,10 @@ def load_lexicon_dict():
 
 def progress(cnt, tot):
     sys.stdout.write("\r %d / %d %f" % (cnt, tot, 1.0*cnt/tot))
+    sys.stdout.flush()
 
 def runfenci(fin, fout):
+  print ""
   with open(fout, 'w') as f_out:
     with open(fin, 'r') as f_in:
         cc = f_in.readlines()
@@ -99,7 +101,7 @@ def runfenci(fin, fout):
             c = uc.encode('utf-8')
             f_out.writelines(c)
             cnt = cnt + 1
-            if cnt % 10000 == 0:
+            if cnt % 1000 == 0:
                 progress(cnt, num)
             
 

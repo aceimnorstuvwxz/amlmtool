@@ -115,6 +115,8 @@ def load_lexicon_dict():
 
 def progress(cnt, tot):
     sys.stdout.write("\r %d / %d %f" % (cnt, tot, 1.0*cnt/tot))
+    sys.stdout.flush()
+
 
 def runfenhang(fin, fout):
   with open(fout, 'w') as f_out:

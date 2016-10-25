@@ -23,4 +23,4 @@ if __name__ == "__main__":
                 print ww[2]
     
     with open('12306names.txt', 'w') as f:
-        f.write(' '.join(ret))
+        f.write('\n'.join(ret))
